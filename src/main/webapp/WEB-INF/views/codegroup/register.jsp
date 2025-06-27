@@ -17,7 +17,6 @@
 			<td><font color="red"><form:errors path="groupName" /></font></td>
 		</tr>
 	</table>
-</form:form>
 <div>
 	<button type="submit" id="btnRegister">
 		<spring:message code="action.register" />
@@ -26,6 +25,7 @@
 		<spring:message code="action.list" />
 	</button>
 </div>
+</form:form>
 <script>
 	$(document).ready(function() {
 		var formObj = $("#codeGroup");

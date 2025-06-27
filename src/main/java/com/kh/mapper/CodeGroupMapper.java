@@ -8,18 +8,18 @@ import com.kh.domain.CodeGroup;
 
 @Mapper
 public interface CodeGroupMapper {
-		// 파일 삽입
+		// 등록 처리
 		public void register(CodeGroup codeGroup) throws Exception;
 
-		// 파일 출력
-		public CodeGroup read(CodeGroup codeGroup) throws Exception;
+		// 상세 페이지
+		public CodeGroup read(String groupCode) throws Exception;
 
-		// 파일 수정
+		// 수정 처리
 		public void update(CodeGroup codeGroup) throws Exception;
 
 		// 파일 삭제
 		public void delete(CodeGroup codeGroup) throws Exception;
 
-		// 파일 출력<전체>
+		// 목록 페이지<전체>
 		public List<CodeGroup> list() throws Exception;
 }

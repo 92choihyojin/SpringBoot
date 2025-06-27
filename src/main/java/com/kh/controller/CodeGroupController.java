@@ -14,7 +14,7 @@ import com.kh.service.CodeGroupService;
 @Controller
 @RequestMapping("/codegroup")
 public class CodeGroupController {
-	
+
 	@Autowired
 	private CodeGroupService service;
 
@@ -24,11 +24,37 @@ public class CodeGroupController {
 		CodeGroup codeGroup = new CodeGroup();
 		model.addAttribute(codeGroup);
 	}
-	
+
 	// 등록 처리
-	@PostMapping("/register") public String register(CodeGroup codeGroup, RedirectAttributes rttr)
+	@PostMapping("/register")
+	public String register(CodeGroup codeGroup, RedirectAttributes rttr) throws Exception {
+		service.register(codeGroup);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/codegroup/list";
+	}
+
+	// 목록 페이지
+	@GetMapping("/list")
+	public void list(Model model) throws Exception {
+		model.addAttribute("list", service.list());
+	}
+
+	// 상세 페이지
+	@GetMapping("/read")
+	public void read(String groupCode, Model model) throws Exception {
+		model.addAttribute(service.read(groupCode));
+	}
+
+	// 수정 페이지
+	@GetMapping("/modify")
+	public void modifyForm(String groupCode, Model model) throws Exception {
+		model.addAttribute(service.read(groupCode));
+	}
+	
+	// 수정 처리
+	@PostMapping("/modify") public String modify(CodeGroup codeGroup, RedirectAttributes rttr)
 	throws Exception {
-	service.register(codeGroup);
-	rttr.addFlashAttribute("msg", "SUCCESS"); return "redirect:/codegroup/list";
+	service.modify(codeGroup); rttr.addFlashAttribute("msg", "SUCCESS");
+	return "redirect:/codegroup/list";
 	}
 }

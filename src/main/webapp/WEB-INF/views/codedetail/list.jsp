@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<!-- 화면 영역 -->
+<!-- 화면영역 -->
 <style>
 /* 테이블 기본 스타일 */
 .form-table {
@@ -76,11 +78,12 @@
 	background-color: #fff;
 	color: black;
 	padding: 10px 20px;
-	font-size: 14px;
+	font-size: 18px;
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+	display: inline-block;
 }
 
 .btn-error {
@@ -98,14 +101,6 @@
 	color: #fff;
 }
 
-.btn-green {
-	background-color: #228B22;
-}
-
-.btn-green:hover {
-	background-color: #00ff00;
-}
-
 .btn-error:hover {
 	background-color: #7f0015;
 }
@@ -117,44 +112,52 @@
 .btn-primary:hover {
 	background-color: #3700b3;
 }
-
-.btn-green:hover {
-	background-color: #00ff00;
-}
 </style>
-<h2>
-	<spring:message code="codegroup.header.modify" />
-</h2>
-<form:form modelAttribute="codeGroup" action="modify">
-	<table>
+
+<title>목록</title>
+<main>
+	<h2>
+		<spring:message code="codedetail.header.list" />
+	</h2>
+	<a href="register"><spring:message code="action.new" /></a>
+	<table border="1">
 		<tr>
-			<td><spring:message code="codegroup.groupCode" /></td>
-			<td><form:input path="groupCode" /></td>
-			<td><font color="red"><form:errors path="groupCode" /></font></td>
+			<th align="center" width="160"><spring:message
+					code="codedetail.groupCode" /></th>
+			<th align="center" width="160"><spring:message
+					code="codedetail.codeValue" /></th>
+			<th align="center" width="160"><spring:message
+					code="codedetail.codeName" /></th>
+			<th align="center" width="160"><spring:message
+					code="codedetail.sortSeq" /></th>
+			<th align="center" width="180"><spring:message
+					code="codedetail.regdate" /></th>
 		</tr>
-		<tr>
-			<td><spring:message code="codegroup.groupName" /></td>
-			<td><form:input path="groupName" /></td>
-			<td><font color="red"><form:errors path="groupName" /></font></td>
-		</tr>
+		<c:choose>
+			<c:when test="${empty list}">
+				<tr>
+					<td colspan="5"><spring:message code="common.listEmpty" /></td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list}" var="codeDetail">
+					<tr>
+						<td align="center">${codeDetail.groupCode}</td>
+						<td align="center">${codeDetail.codeValue}</td>
+						<td align="left"><a
+							href="/codedetail/read?groupCode=${codeDetail.groupCode}&codeValue=${codeDetai l.codeValue}">${codeDetail.codeName}</a></td>
+						<td align="center">${codeDetail.sortSeq}</td>
+						<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+								value="${codeDetail.regDate}" /></td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</table>
-</form:form>
-<div>
-	<button type="submit" id="btnModify">
-		<spring:message code="action.modify" />
-	</button>
-	<button type="submit" id="btnList">
-		<spring:message code="action.list" />
-	</button>
-</div>
-<script>
-	$(document).ready(function() {
-		var formObj = $("#codeGroup");
-		$("#btnModify").on("click", function() {
-			formObj.submit();
-		});
-		$("#btnList").on("click", function() {
-			self.location = "list";
-		});
-	});
-</script>
+	<script>
+		var result = "${msg}";
+		if (result === "SUCCESS") {
+			alert("<spring:message code='common.processSuccess' />");
+		}
+	</script>
+</main>

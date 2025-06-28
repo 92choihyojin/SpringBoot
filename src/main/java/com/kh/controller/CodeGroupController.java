@@ -57,4 +57,11 @@ public class CodeGroupController {
 	service.modify(codeGroup); rttr.addFlashAttribute("msg", "SUCCESS");
 	return "redirect:/codegroup/list";
 	}
+	
+	//삭제 처리
+	@PostMapping("/remove")
+	public String remove(String groupCode, RedirectAttributes rttr) throws Exception {
+	service.remove(groupCode); rttr.addFlashAttribute("msg", "SUCCESS");
+	return "redirect:/codegroup/list";
+	}
 }

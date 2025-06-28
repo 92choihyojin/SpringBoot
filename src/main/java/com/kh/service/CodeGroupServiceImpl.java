@@ -3,21 +3,21 @@ package com.kh.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.kh.domain.CodeGroup;
+import com.kh.mapper.CodeDetailMapper;
 import com.kh.mapper.CodeGroupMapper;
 
 @Service
-@ComponentScan
 public class CodeGroupServiceImpl implements CodeGroupService {
+
 	@Autowired
 	private CodeGroupMapper mapper;
 
-	// 등록 처리
 	@Override
 	public void register(CodeGroup codeGroup) throws Exception {
+		System.out.println(codeGroup.toString());
 		mapper.register(codeGroup);
 	}
 
@@ -27,7 +27,7 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 		return mapper.list();
 	}
 
-	// 상세 페이지
+	// 상세 페이지(수정 페이지)
 	@Override
 	public CodeGroup read(String groupCode) throws Exception {
 		return mapper.read(groupCode);
@@ -37,5 +37,11 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 	@Override
 	public void modify(CodeGroup codeGroup) throws Exception {
 		mapper.update(codeGroup);
+	}
+
+	// 삭제 처리
+	@Override
+	public void remove(String groupCode) throws Exception {
+		mapper.delete(groupCode);
 	}
 }

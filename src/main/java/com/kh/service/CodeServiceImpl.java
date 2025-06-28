@@ -10,6 +10,7 @@ import com.kh.mapper.CodeMapper;
 
 @Service
 public class CodeServiceImpl implements CodeService {
+	
 	@Autowired
 	private CodeMapper mapper;
 
@@ -19,9 +20,9 @@ public class CodeServiceImpl implements CodeService {
 		return mapper.getCodeGroupList();
 	}
 
-	// 그룹코드 목록 조회 구현
+	// 지정된 그룹코드에 해당하는 코드 목록 조회
 	@Override
 	public List<CodeLabelValue> getCodeList() throws Exception {
-		return mapper.getCodeGroupList();
+	return mapper.getCodeList();
 	}
 }

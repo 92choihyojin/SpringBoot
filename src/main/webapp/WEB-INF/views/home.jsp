@@ -12,9 +12,9 @@
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 	<div align="center">
 		<h1>
-			<spring:message code="common.homeWelcome" />
+			<spring:message code="header.home" />
 		</h1>
-		<P>${serverTime}</P>
+		<p>${serverTime}</p>
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>

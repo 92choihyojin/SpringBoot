@@ -140,10 +140,10 @@
 	</table>
 </form:form>
 <div>
-	<button type="submit" id="btnModify">
+	<button type="button" id="btnModify">
 		<spring:message code="action.modify" />
 	</button>
-	<button type="submit" id="btnList">
+	<button type="button" id="btnList">
 		<spring:message code="action.list" />
 	</button>
 </div>

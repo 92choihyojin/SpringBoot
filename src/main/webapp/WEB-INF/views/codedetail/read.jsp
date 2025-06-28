@@ -137,13 +137,13 @@
 			</tr>
 		</table>
 	<div>
-		<button type="submit" id="btnEdit">
+		<button type="button" id="btnEdit">
 			<spring:message code="action.edit" />
 		</button>
-		<button type="submit" id="btnRemove">
+		<button type="button" id="btnRemove">
 			<spring:message code="action.remove" />
 		</button>
-		<button type="submit" id="btnList">
+		<button type="button" id="btnList">
 			<spring:message code="action.list" />
 		</button>
 	</div>

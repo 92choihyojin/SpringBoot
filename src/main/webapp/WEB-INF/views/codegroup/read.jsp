@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <!-- 화면영역 -->
 <style>
 /* 테이블 기본 스타일 */
@@ -133,13 +133,13 @@
 			</tr>
 		</table>
 	<div>
-		<button type="submit" id="btnEdit">
+		<button type="button" id="btnEdit">
 			<spring:message code="action.edit" />
 		</button>
-		<button type="submit" id="btnRemove">
+		<button type="button" id="btnRemove">
 			<spring:message code="action.remove" />
 		</button>
-		<button type="submit" id="btnList">
+		<button type="button" id="btnList">
 			<spring:message code="action.list" />
 		</button>
 	</div>

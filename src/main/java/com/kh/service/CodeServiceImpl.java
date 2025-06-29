@@ -22,7 +22,7 @@ public class CodeServiceImpl implements CodeService {
 
 	// 지정된 그룹코드에 해당하는 코드 목록 조회
 	@Override
-	public List<CodeLabelValue> getCodeList() throws Exception {
+	public List<CodeLabelValue> getCodeList(String groupCode) throws Exception {
 	return mapper.getCodeList();
 	}
 }

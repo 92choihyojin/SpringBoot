@@ -10,14 +10,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
-	<div align="center">
-		
-
-
-
-
-
-	</div>
+	<div align="center"></div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

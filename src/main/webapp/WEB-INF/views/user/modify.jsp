@@ -5,23 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script>
-/*
-	private int userNo;
-	@NotBlank
-	private String userId;
-	@NotBlank
-	private String userPw;
-	@NotBlank
-	private String userName;
-	private String job;
-	private int coin;
-	private boolean enabled;
-	private Date regDate;
-	private Date updDate;
-	private List<MemberAuth> authList;
-*/
-</script>
 <h2>
 	<spring:message code="member.header.modify" />
 </h2>

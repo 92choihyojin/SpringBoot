@@ -2,7 +2,10 @@ package com.kh.mapper;
 
 import java.util.List;
 
-public class BoardMapper {
+import com.kh.domain.Board;
+
+
+public interface BoardMapper {
 
 	// 게시글 등록 처리
 	public void register(Board board) throws Exception;
@@ -13,4 +16,11 @@ public class BoardMapper {
 	// 게시글 상세 페이지
 	public Board read(Integer boardNo) throws Exception;
 
+	// 게시글 수정 처리
+	public void update(Board board) throws Exception;
+
+	// 게시글 삭제 처리
+	public void delete(Integer boardNo) throws Exception;
+
+	
 }

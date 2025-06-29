@@ -16,5 +16,33 @@
 			#{userName}
 		)
 	</insert>
+	
+	<select id="list" resultType="com.kh.domain.Member">
+	SELECT 
+	    USER_NO,
+	    USER_ID,
+	    RPAD(SUBSTR(USER_PW, 1, 5), 10, '*') AS USER_PW,
+	    USER_NAME,
+	    JOB,
+	    COIN,
+	    REG_DATE,
+	    UPD_DATE,
+	    ENABLED 
+	FROM MEMBER
+	</select>
+	<select id="read" resultType="com.kh.domain.Member">
+	SELECT 
+	    USER_NO,
+	    USER_ID,
+	    RPAD(SUBSTR(USER_PW, 1, 5), 10, '*') AS USER_PW,
+	    USER_NAME,
+	    JOB,
+	    COIN,
+	    REG_DATE,
+	    UPD_DATE,
+	    ENABLED 
+	FROM MEMBER
+	WHERE USER_NO = #{userNo}
+	</select>
 
 </mapper>

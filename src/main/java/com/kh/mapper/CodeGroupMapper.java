@@ -24,9 +24,10 @@ public interface CodeGroupMapper {
 	// 삭제 처리
 	public void delete(String groupCode) throws Exception;
 
+	//
 	public int getMaxSortSeq(String groupCode) throws Exception;
 
+	//
 	public void create(CodeDetail codeDetail) throws Exception;
-
 
 }

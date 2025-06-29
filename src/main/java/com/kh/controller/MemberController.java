@@ -59,15 +59,20 @@ public class MemberController {
 	}
 //
 //	// 등록 성공 페이지
-//	@GetMapping("/registerSuccess")
-//	public void registerSuccess(Model model) throws Exception {
-//	}
+	@GetMapping("/registerSuccess")
+	public void registerSuccess(Model model) throws Exception {
+	}
 
 //	// 목록 페이지
-//	@GetMapping("/list")
-//	public void list(Model model) throws Exception {
-//		model.addAttribute("list", service.list());
-//	}
+	@GetMapping("/list")
+	public void list(Model model) throws Exception {
+		model.addAttribute("list", service.list());
+	}
+	@GetMapping("/read")
+	public void read(String userNo, Model model) throws Exception {
+		model.addAttribute("member", service.read(Integer.parseInt(userNo)));
+	}
+	
 
 	// 수정 페이지
 //	@GetMapping("/modify")

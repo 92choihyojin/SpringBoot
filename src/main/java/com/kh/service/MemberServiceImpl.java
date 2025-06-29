@@ -23,14 +23,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 목록 페이지
-//	@Override
-//	public List<Member> list() throws Exception {
-//		return mapper.list();
-//	}
-//
-//	// 상세 페이지
-//	@Override
-//	public Member read(int userNo) throws Exception {
-//		return mapper.read(userNo);
-//	}
+	@Override
+	public List<Member> list() throws Exception {
+		return mapper.list();
+	}
+
+	// 상세 페이지
+	@Override
+	public Member read(int userNo) throws Exception {
+		return mapper.read(userNo);
+	}
 }

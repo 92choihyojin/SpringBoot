@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -115,65 +117,45 @@
 <title>목록</title>
 <main>
 	<h2>
-		<spring:message code="codedetail.header.read" />
+		<spring:message code="board.header.list" />
 	</h2>
-	<form:form modelAttribute="codeDetail">
-		<table>
-			<tr>
-				<td><spring:message code="codedetail.groupCode" /></td>
-				<td><form:select path="groupCode" items="${groupCodeList}"
-						itemValue="value" itemLabel="label" readonly="true" /></td>
-				<td><font color="red"><form:errors path="groupCode" /></font></td>
-			</tr>
-			<tr>
-				<td><spring:message code="codedetail.codeValue" /></td>
-				<td><form:input path="codeValue" readonly="true" /></td>
-				<td><font color="red"><form:errors path="codeValue" /></font></td>
-			</tr>
-			<tr>
-				<td><spring:message code="codedetail.codeName" /></td>
-				<td><form:input path="codeName" readonly="true" /></td>
-				<td><font color="red"><form:errors path="codeName" /></font></td>
-			</tr>
-		</table>
-	<div>
-		<button type="button" id="btnEdit">
-			<spring:message code="action.edit" />
-		</button>
-		<button type="button" id="btnRemove">
-			<spring:message code="action.remove" />
-		</button>
-		<button type="button" id="btnList">
-			<spring:message code="action.list" />
-		</button>
-	</div>
-	</form:form>
+	<sec:authorize access="hasRole('ROLE_MEMBER')">
+		<a href="register"><spring:message code="action.new" /></a>
+	</sec:authorize>
+	<table border="1">
+		<tr>
+			<th align="center" width="80"><spring:message code="board.no" /></th>
+			<th align="center" width="320"><spring:message
+					code="board.title" /></th>
+			<th align="center" width="100"><spring:message
+					code="board.writer" /></th>
+			<th align="center" width="180"><spring:message
+					code="board.regdate" /></th>
+		</tr>
+		<c:choose>
+			<c:when test="${empty list}">
+				<tr>
+					<td colspan="4"><spring:message code="common.listEmpty" /></td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list}" var="board">
+					<tr>
+						<td align="center">${board.boardNo}</td>
+						<td align="left"><a
+							href='/board/read?boardNo=${board.boardNo}'>${board.title}</a></td>
+						<td align="right">${board.writer}</td>
+						<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+								value="${board.regDate}" /></td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</table>
 	<script>
-		$(document).ready(
-				function() {
-					var formObj = $("#codeDetail");
-					$("#btnEdit").on(
-							"click",
-							function() {
-								formObj.attr("action", "/codedetail/modify");
-								formObj.attr("method", "get");
-								formObj.submit();
-								var groupCode = $("#groupCode");
-								var groupCodeVal = groupCode.val();
-								var codeValue = $("#codeValue");
-								var codeValueVal = codeValue.val();
-								self.location = "modify?groupCode="
-										+ groupCodeVal + "&" + "codeValue="
-										+ codeValueVal;
-							});
-					$("#btnRemove").on("click", function() {
-						formObj.attr("action", "remove");
-						formObj.submit();
-					});
-					$("#btnList").on("click", function() {
-						self.location = "list";
-					});
-				});
+		var result = "${msg}";
+		if (result === "SUCCESS") {
+			alert("<spring:message code='common.processSuccess' />");
+		}
 	</script>
-	
 </main>

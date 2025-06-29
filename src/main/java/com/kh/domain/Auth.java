@@ -1,7 +1,6 @@
 package com.kh.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -11,18 +10,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Member {
-	private int userNo;
+public class Auth {
 	@NotBlank
-	private String userId;
+	private int authNo;
 	@NotBlank
-	private String userPw;
-	@NotBlank
-	private String userName;
-	private String job;
-	private int coin;
-	private String enabled;
+	private String authName;
 	private Date regDate;
 	private Date updDate;
-	private List<MemberAuth> authList;
+	private String isDelete;
 }

@@ -35,13 +35,13 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 
 	// 수정 처리
 	@Override
-	public void modify(CodeGroup codeGroup) throws Exception {
+	public void update(CodeGroup codeGroup) throws Exception {
 		mapper.update(codeGroup);
 	}
 
 	// 삭제 처리
 	@Override
-	public void remove(String groupCode) throws Exception {
+	public void delete(String groupCode) throws Exception {
 		mapper.delete(groupCode);
 	}
 }

@@ -73,14 +73,14 @@ public class SecurityConfig {
 
 
 		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제한다
-//		http.logout()
-//		.logoutUrl("/auth/logout")
-//		.invalidateHttpSession(true)
-//		.deleteCookies("remember-me", "JSESSION_ID");
+		http.logout()
+		.logoutUrl("/auth/logout")
+		.invalidateHttpSession(true)
+		.deleteCookies("remember-me", "JSESSION_ID");
 		
 		// CustomLoginSuccessHandler를 접근 거부자로 지정한다.
-//		http.exceptionHandling()
-//		.accessDeniedHandler(createAccessDeniedHandler());
+		http.exceptionHandling()
+		.accessDeniedHandler(createAccessDeniedHandler());
 		
 		// 데이터 소스를 지정하고 테이블을 이용해서 기존 로그인 정보를 기록
 		// 쿠키의 유효시간(24시간)을 지정한다.
@@ -98,7 +98,7 @@ public class SecurityConfig {
 		.passwordEncoder(createPasswordEncoder());
 	}
 
-	@Bean
+	
 	public PasswordEncoder createPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

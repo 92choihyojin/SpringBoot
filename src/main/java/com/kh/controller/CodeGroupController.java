@@ -49,22 +49,22 @@ public class CodeGroupController {
 	}
 
 	// 수정 페이지
-	@GetMapping("/modify")
+	@GetMapping("/update")
 	public void modifyForm(String groupCode, Model model) throws Exception {
 		model.addAttribute(service.read(groupCode));
 	}
 	
 	// 수정 처리
-	@PostMapping("/modify") public String modify(CodeGroup codeGroup, RedirectAttributes rttr)
+	@PostMapping("/update") public String modify(CodeGroup codeGroup, RedirectAttributes rttr)
 	throws Exception {
-	service.modify(codeGroup); rttr.addFlashAttribute("msg", "SUCCESS");
+	service.update(codeGroup); rttr.addFlashAttribute("msg", "SUCCESS");
 	return "redirect:/codegroup/list";
 	}
 	
 	//삭제 처리
-	@PostMapping("/remove")
+	@PostMapping("/delete")
 	public String remove(String groupCode, RedirectAttributes rttr) throws Exception {
-	service.remove(groupCode); rttr.addFlashAttribute("msg", "SUCCESS");
+	service.delete(groupCode); rttr.addFlashAttribute("msg", "SUCCESS");
 	return "redirect:/codegroup/list";
 	}
 }

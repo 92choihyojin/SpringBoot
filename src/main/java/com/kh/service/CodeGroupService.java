@@ -16,10 +16,10 @@ public interface CodeGroupService {
 	public CodeGroup read(String groupCode) throws Exception;
 
 	// 수정 처리
-	public void modify(CodeGroup codeGroup) throws Exception;
+	public void update(CodeGroup codeGroup) throws Exception;
 	
 	// 삭제 처리
-	public void remove(String groupCode) throws Exception;
+	public void delete(String groupCode) throws Exception;
 
 	
 }

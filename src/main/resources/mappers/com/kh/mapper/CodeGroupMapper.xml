@@ -3,9 +3,15 @@
 <mapper namespace="com.kh.mapper.CodeGroupMapper">
 
 	<!-- 등록 처리 -->
-	<insert id="create">
-		INSERT INTO code_group(group_code, group_name)
-		VALUES(#{groupCode}, #{groupName})
+	<insert id="register">
+		INSERT INTO code_group(
+			group_code,
+			group_name
+		)
+		VALUES(
+			#{groupCode},
+			#{groupName}
+		)
 	</insert>
 
 	<!-- 목록 조회 -->

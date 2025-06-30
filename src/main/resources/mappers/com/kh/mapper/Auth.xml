@@ -24,7 +24,7 @@
 		    upd_date,
 		    is_delete
 		FROM auth 
-		WHERE is_delete = '0' AND auth_no = #{authNo}
+		WHERE is_delete = '0' AND auth_no = #{auth}
 		ORDER BY reg_date
 	</select>
 </mapper>

@@ -22,6 +22,7 @@ import com.kh.service.MemberService;
 @Controller
 @RequestMapping("/user")
 public class MemberController {
+	
 	@Autowired
 	private MemberService service;
 
@@ -45,7 +46,7 @@ public class MemberController {
 	@PostMapping("/register")
 	public String register(Member member, BindingResult result, Model model, RedirectAttributes rttr) throws Exception {
 
-		PasswordEncoderImpl passwordEncoderImpl = new PasswordEncoderImpl();
+		//PasswordEncoderImpl passwordEncoderImpl = new PasswordEncoderImpl();
 		if (result.hasErrors()) {
 			// 직업코드 목록을 조회하여 뷰에 전달
 			String groupCode = "A00"; List<CodeLabelValue> jobList =
@@ -56,8 +57,9 @@ public class MemberController {
 		// 비밀번호 암호화
 		String inputPassword = member.getUserPw();
 		
-		member.setUserPw(passwordEncoderImpl.encode(inputPassword));
-
+		//member.setUserPw(passwordEncoderImpl.encode(inputPassword));
+		//member.setUserPw(passwordEncoder.encode(inputPassword));
+		member.setUserPw(passwordEncoder.encode(member.getUserPw()));
 		service.register(member);
 		rttr.addFlashAttribute("userName", member.getUserName());
 		return "redirect:/user/registerSuccess";

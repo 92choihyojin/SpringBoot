@@ -15,6 +15,50 @@
 			<td><spring:message code="user.userId" /></td>
 			<td><form:input path="userId" readonly="true" /></td>
 			<td><font color="red"><form:errors path="user.userId" /></font></td>
+		<tr>
+			<td><spring:message code="user.userName" /></td>
+			<td><form:input path="userName" /></td>
+			<td><font color="red"><form:errors path="userName" /></font></td>
+		</tr>
+		<tr>
+			<td><spring:message code="user.job" /></td>
+			<td><form:select path="job" items="${jobList}" itemValue="value"
+					itemLabel="label" /></td>
+			<td><font color="red"><form:errors path="job" /></font></td>
+		</tr>
+		<tr>
+			<td><spring:message code="user.auth" /> - 1</td>
+			<td><form:select path="authList[0].auth">
+					<form:option value="" label="=== 선택해 주세요 ===" />
+					<form:option value="ROLE_USER" label="사용자" />
+					<form:option value="ROLE_MEMBER" label="회원" />
+					<form:option value="ROLE_ADMIN" label="관리자" />
+				</form:select></td>
+			</font>
+			</td>
+		</tr>
+		<tr>
+			<td><font color="red"><form:errors
+						path="authList[0].auth" /></font></td>
+			<td><spring:message code="user.auth" /> - 2</td>
+			<td><form:select path="authList[1].auth">
+					<form:option value="" label="=== 선택해 주세요 ===" />
+					<form:option value="ROLE_USER" label="사용자" />
+					<form:option value="ROLE_MEMBER" label="회원" />
+					<form:option value="ROLE_ADMIN" label="관리자" />
+				</form:select></td>
+			<td><font color="red"><form:errors
+						path="authList[1].auth" /></font></td>
+		</tr>
+		<tr>
+			<td><spring:message code="user.auth" /> - 3</td>
+			<td><form:select path="authList[2].auth">
+					<form:option value="" label="=== 선택해 주세요 ===" />
+					<form:option value="ROLE_MEMBER" label="회원" />
+					<form:option value="ROLE_ADMIN" label="관리자" />
+				</form:select></td>
+			<td><font color="red"><form:errors
+						path="authList[2].auth" /></font></td>
 		</tr>
 	</table>
 </form:form>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.mapper.MemberMapper">
+
 	<!-- 사용자 정의 resultMap 요소 정의 -->
 	<resultMap type="Member" id="memberMap">
 		<result property="userNo" column="user_no" />
@@ -17,9 +18,66 @@
 	</resultMap>
 	<resultMap type="MemberAuth" id="authMap">
 		<result property="userNo" column="user_no" />
-		<result property="auth" column="auth" />
+		<result property="authNo" column="auth_no" />
 	</resultMap>
-
+	
+	<!-- 등록 처리 -->
+	<insert id="register">
+		INSERT INTO MEMBER(
+			USER_NO,
+			USER_ID, 
+			USER_NAME, 
+			USER_PW)
+		VALUES(member_seq.NEXTVAL,
+			#{userId},
+			#{userPw},
+			#{userName}
+		)
+	</insert>
+	
+	<!-- 권한 생성 -->
+	<insert id="createAuth">
+		INSERT INTO member_auth(
+			user_no,
+			auth_no
+			)
+		VALUES(member_seq.CURRVAL,
+			#{auth}
+		)
+	</insert>
+	
+	<!-- 목록 조회 -->
+	<select id="list" resultType="com.kh.domain.Member">
+		SELECT
+			USER_NO,
+			USER_ID,
+			RPAD(SUBSTR(USER_PW, 1, 5), 10, '*') AS USER_PW,
+			(SELECT code_name FROM code_detail WHERE group_code = 'A00' AND code_value = job) AS job,
+			COIN,
+			REG_DATE,
+			UPD_DATE,
+			ENABLED
+		FROM MEMBER
+		ORDER BY REG_DATE DESC
+	</select>
+	
+	<!-- 상세 조회 -->
+	<select id="read" resultMap="memberMap">
+		SELECT
+			mem.user_no,
+			mem.user_id,
+			user_pw,
+			user_name,
+			job,
+			coin,
+			reg_date,
+			upd_date,
+			AUTH
+			FROM member mem
+			LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
+			WHERE mem.user_no = #{userNo}
+	</select>
+	
 	<!-- 사용자 아이디로 회원 정보 조회 -->
 	<select id="readByUserId" resultMap="memberMap">
 		SELECT
@@ -32,78 +90,16 @@
 			enabled,
 			reg_date,
 			upd_date,
-			a.auth_name
+			auth.auth
 		FROM member mem
 		LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
 		WHERE mem.user_id = #{userId}
 	</select>
 
-	<!-- 등록 처리 -->
-	<insert id="register">
-		INSERT INTO member(
-			user_no,
-			user_id,
-			user_pw,
-			user_name)
-		VALUES(member_seq.NEXTVAL,
-			#{userId},
-			#{userPw},
-			#{userName}
-		)
-	</insert>
-
-	<!-- 권한 생성 -->
-	<insert id="createAuth">
-		INSERT INTO member_auth(
-			user_no,
-			auth
-			)
-		VALUES(member_seq.CURRVAL,
-			#{auth}
-		)
-	</insert>
-
-	<!-- 목록 조회 -->
-	<select id="list" resultType="com.kh.domain.Member">
-		SELECT
-			USER_NO,
-			USER_ID,
-			RPAD(SUBSTR(USER_PW, 1, 5), 10, '*') AS USER_PW,
-			USER_NAME,
-			JOB,
-			COIN,
-			REG_DATE,
-			UPD_DATE,
-			ENABLED
-		FROM MEMBER
-	</select>
-
-	<!-- 상세 조회 -->
-	<select id="read" resultType="com.kh.domain.Member">
-		SELECT
-			USER_NO,
-			USER_ID,
-			RPAD(SUBSTR(USER_PW, 1, 5), 10, '*') AS USER_PW,
-			USER_NAME,
-			JOB,
-			COIN,
-			REG_DATE,
-			UPD_DATE,
-			ENABLED
-		FROM MEMBER
-		WHERE USER_NO = #{userNo}
-	</select>
-
-	<!-- 권한 수정 -->
-	<insert id="modifyAuth">
-		INSERT INTO member_auth(user_no, auth)
-		VALUES(#{userNo}, #{auth})
-	</insert>
-
 	<!-- 수정 처리 -->
 	<update id="update">
 		UPDATE member
-		SET user_name =#{userName}, job =#{job}
+		SET user_name = #{userName}, job =#{job}
 		WHERE user_no = #{userNo}
 	</update>
 	<!-- 삭제 처리 -->
@@ -116,9 +112,22 @@
 		DELETE FROM member_auth
 		WHERE user_no = #{userNo}
 	</delete>
+
 	<!-- 회원 테이블의 데이터 건수 조회 -->
 	<select id="countAll" resultType="int">
 		SELECT count(*)
 		FROM member
 	</select>
+
+	<!-- 권한 수정 -->
+	<insert id="modifyAuth">
+		INSERT INTO member_auth(
+			user_no,
+			AUTH
+		)
+		VALUES(
+			#{userNo},
+			#{auth}
+		)
+	</insert>
 </mapper>

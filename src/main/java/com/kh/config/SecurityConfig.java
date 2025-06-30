@@ -27,10 +27,9 @@ import lombok.extern.java.Log;
 
 @Log
 @Configuration
-@EnableWebSecurity
-
+//@EnableWebSecurity
 //시큐리티 애너테이션 활성화를 위한 설정
-@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
+//@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
 public class SecurityConfig {
 	// 데이터 소스
 	@Autowired
@@ -40,7 +39,9 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		log.info("security config ...");
 		// csrf 토큰 비활성화
-//		// 인가설정
+		http.csrf().disable();
+		
+		// 인가설정
 		http.authorizeHttpRequests()
 		.requestMatchers("/board/**")
 		.authenticated()
@@ -52,24 +53,16 @@ public class SecurityConfig {
 		.permitAll();
 
 		// 로그인설정
-		http.formLogin();
-		// http.formLogin().loginPage("/login").defaultSuccessUrl("/success");
+		 http.formLogin()
+		.loginPage("/login")
+		.defaultSuccessUrl("/success")
+		.successHandler(createAuthenticationSuccessHandler())
+        .permitAll()
 		
-
 		// CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
-		http
-			.csrf().disable()
-			.formLogin()
-			.loginPage("/auth/login") // 사용자 정의 로그인 페이지
+			//.loginPage("/auth/login") // 사용자 정의 로그인 페이지
             .loginProcessingUrl("/login") // 로그인 처리 URL
-            .successHandler(createAuthenticationSuccessHandler()) // 로그인 성공 시 핸들러
-            .permitAll()
-        .and()
-        	.logout()
-        	.logoutUrl("/auth/logout")
-        	.invalidateHttpSession(true)
-            .logoutSuccessUrl("/") // 로그아웃 성공 시 이동 경로
-            .permitAll();
+            .successHandler(createAuthenticationSuccessHandler()); // 로그인 성공 시 핸들러
 
 
 		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제한다
@@ -79,8 +72,7 @@ public class SecurityConfig {
 		.deleteCookies("remember-me", "JSESSION_ID");
 		
 		// CustomLoginSuccessHandler를 접근 거부자로 지정한다.
-		http.exceptionHandling()
-		.accessDeniedHandler(createAccessDeniedHandler());
+		http.exceptionHandling().accessDeniedHandler(createAccessDeniedHandler());
 		
 		// 데이터 소스를 지정하고 테이블을 이용해서 기존 로그인 정보를 기록
 		// 쿠키의 유효시간(24시간)을 지정한다.
@@ -98,7 +90,7 @@ public class SecurityConfig {
 		.passwordEncoder(createPasswordEncoder());
 	}
 
-	
+	@Bean
 	public PasswordEncoder createPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

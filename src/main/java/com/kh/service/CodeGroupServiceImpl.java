@@ -41,7 +41,7 @@ public class CodeGroupServiceImpl implements CodeGroupService {
 
 	// 삭제 처리
 	@Override
-	public void delete(String groupCode) throws Exception {
-		mapper.delete(groupCode);
+	public void delete(CodeGroup codeGroup) throws Exception {
+		mapper.delete(codeGroup);
 	}
 }

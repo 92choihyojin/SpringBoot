@@ -8,7 +8,7 @@ import com.kh.domain.MemberAuth;
 public interface MemberMapper {
 
 	// 등록 처리
-	public void create(Member member) throws Exception;
+	public void register(Member member) throws Exception;
 
 	// 권한 생성
 	public void createAuth(MemberAuth memberAuth) throws Exception;

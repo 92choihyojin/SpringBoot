@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/auth")
 public class LoginController {
+
 	// 로그인 페이지
 	@RequestMapping("/login")
 	public String loginForm(String error, String logout, Model model) {

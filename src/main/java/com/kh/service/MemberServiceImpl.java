@@ -12,6 +12,7 @@ import com.kh.mapper.MemberMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+
 	@Autowired
 	private MemberMapper mapper;
 
@@ -19,7 +20,11 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public void register(Member member) throws Exception {
-		mapper.create(member);
+		mapper.register(member);
+		// 회원 권한 생성
+		MemberAuth memberAuth = new MemberAuth();
+		memberAuth.setAuth("ROLE_MEMBER");
+		mapper.createAuth(memberAuth);
 	}
 
 	// 목록 페이지
@@ -35,31 +40,48 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 수정 처리
+	@Transactional
 	@Override
 	public void modify(Member member) throws Exception {
-		// TODO Auto-generated method stub
-
+		mapper.update(member);
+		// 회원권한 수정
+		int userNo = member.getUserNo();
+		// 회원권한 삭제
+		mapper.deleteAuth(userNo);
+		List<MemberAuth> authList = member.getAuthList();
+		for (int i = 0; i < authList.size(); i++) {
+			MemberAuth memberAuth = authList.get(i);
+			String auth = memberAuth.getAuth();
+			if (auth == null) {
+				continue;
+			}
+			if (auth.trim().length() == 0) {
+				continue;
+			}
+			// 변경된 회원권한 추가 memberAuth.setUserNo(userNo); mapper.modifyAuth(memberAuth);
+		}
 	}
 
 	// 삭제 처리
+	@Transactional
 	@Override
 	public void remove(int userNo) throws Exception {
-		// TODO Auto-generated method stub
-
+		// 회원 권한 삭제
+		mapper.deleteAuth(userNo);
+		mapper.delete(userNo);
 	}
 
 	// 회원 테이블의 데이터 건수를 반환
 	@Override
 	public int countAll() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.countAll();
 	}
 
 	// 최초 관리자를 생성한다.
 	@Transactional
 	@Override
 	public void setupAdmin(Member member) throws Exception {
-		mapper.create(member);
+		mapper.register(member);
 		MemberAuth memberAuth = new MemberAuth();
 		memberAuth.setUserNo(member.getUserNo());
 		memberAuth.setAuth("ROLE_ADMIN");

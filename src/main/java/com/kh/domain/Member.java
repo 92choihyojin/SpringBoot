@@ -4,13 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class Member {
 	private int userNo;
 	@NotBlank

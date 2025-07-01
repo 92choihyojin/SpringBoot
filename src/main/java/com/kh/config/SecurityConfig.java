@@ -27,10 +27,11 @@ import lombok.extern.java.Log;
 
 @Log
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 //시큐리티 애너테이션 활성화를 위한 설정
-//@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
+@EnableMethodSecurity(prePostEnabled=true, securedEnabled=true)
 public class SecurityConfig {
+	
 	// 데이터 소스
 	@Autowired
 	DataSource dataSource;
@@ -42,27 +43,16 @@ public class SecurityConfig {
 		http.csrf().disable();
 		
 		// 인가설정
-		http.authorizeHttpRequests()
-		.requestMatchers("/board/**")
-		.authenticated()
-		.requestMatchers("/manager/**")
-		.hasRole("MANAGER")
-		.requestMatchers("/admin/**")
-		.hasRole("ADMIN")
-		.anyRequest()
-		.permitAll();
+		http.authorizeHttpRequests().requestMatchers("/board/**").authenticated();
+		http.authorizeHttpRequests().requestMatchers("/manager/**").hasRole("MANAGER");
+		http.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("ADMIN");
+		http.authorizeHttpRequests().anyRequest().permitAll();
 
-		// 로그인설정
-		 http.formLogin()
-		.loginPage("/login")
-		.defaultSuccessUrl("/success")
-		.successHandler(createAuthenticationSuccessHandler())
-        .permitAll()
-		
 		// CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
-			//.loginPage("/auth/login") // 사용자 정의 로그인 페이지
-            .loginProcessingUrl("/login") // 로그인 처리 URL
-            .successHandler(createAuthenticationSuccessHandler()); // 로그인 성공 시 핸들러
+		http.formLogin().
+		loginPage("/auth/login").
+		loginProcessingUrl("/login").
+		successHandler(createAuthenticationSuccessHandler());
 
 
 		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제한다

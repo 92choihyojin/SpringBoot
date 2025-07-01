@@ -26,12 +26,16 @@
 		INSERT INTO MEMBER(
 			USER_NO,
 			USER_ID, 
+			USER_PW,
 			USER_NAME, 
-			USER_PW)
-		VALUES(member_seq.NEXTVAL,
+			JOB
+		)
+		VALUES(
+			member_seq.NEXTVAL,
 			#{userId},
 			#{userPw},
 			#{userName}
+			#{JOB}
 		)
 	</insert>
 	
@@ -41,7 +45,8 @@
 			user_no,
 			auth_no
 			)
-		VALUES(member_seq.CURRVAL,
+		VALUES(
+			member_seq.CURRVAL,
 			#{auth}
 		)
 	</insert>
@@ -90,7 +95,7 @@
 			enabled,
 			reg_date,
 			upd_date,
-			auth.auth
+			auth
 		FROM member mem
 		LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
 		WHERE mem.user_id = #{userId}

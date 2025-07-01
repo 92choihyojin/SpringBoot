@@ -24,6 +24,7 @@ public class MemberServiceImpl implements MemberService {
 		// 회원 권한 생성
 		MemberAuth memberAuth = new MemberAuth();
 		memberAuth.setAuth("ROLE_MEMBER");
+		
 		mapper.createAuth(memberAuth);
 	}
 
@@ -82,8 +83,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void setupAdmin(Member member) throws Exception {
 		mapper.register(member);
+		
 		MemberAuth memberAuth = new MemberAuth();
-		memberAuth.setUserNo(member.getUserNo());
+		
+		memberAuth.setUserNo(member.getUserNo());	
 		memberAuth.setAuth("ROLE_ADMIN");
 		mapper.createAuth(memberAuth);
 	}

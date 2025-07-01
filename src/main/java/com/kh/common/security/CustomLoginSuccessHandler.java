@@ -15,13 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
-// 로그인 성공 처리자 메서드
+	// 로그인 성공 처리자 메서드
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member = customUser.getMember();
 		log.info("Userid = " + member.getUserId());
+
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 }

@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<h2>
 		<spring:message code="auth.header.login" />
 	</h2>

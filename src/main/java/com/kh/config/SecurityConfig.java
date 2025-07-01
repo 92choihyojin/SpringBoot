@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -43,16 +44,21 @@ public class SecurityConfig {
 		http.csrf().disable();
 		
 		// 인가설정
-		http.authorizeHttpRequests().requestMatchers("/board/**").authenticated();
-		http.authorizeHttpRequests().requestMatchers("/manager/**").hasRole("MANAGER");
-		http.authorizeHttpRequests().requestMatchers("/admin/**").hasRole("ADMIN");
-		http.authorizeHttpRequests().anyRequest().permitAll();
+		http.authorizeHttpRequests((auth) -> auth
+				.requestMatchers(HttpMethod.DELETE, "/member/**").permitAll()
+				.requestMatchers("/board/**").authenticated()
+				.requestMatchers("/manager/**").hasRole("MANAGER")
+				.requestMatchers("/admin/**").hasRole("ADMIN")
+				.anyRequest().permitAll()
+		);
+
 
 		// CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
-		http.formLogin().
-		loginPage("/auth/login").
-		loginProcessingUrl("/login").
-		successHandler(createAuthenticationSuccessHandler());
+		http.formLogin()
+		.loginPage("/auth/login")
+		.loginProcessingUrl("/login")
+		.failureUrl("/auth/login?error")
+		.successHandler(createAuthenticationSuccessHandler());
 
 
 		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제한다

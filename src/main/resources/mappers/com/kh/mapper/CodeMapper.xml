@@ -13,7 +13,7 @@
 	<select id="getCodeList"
 		resultType="com.kh.common.CodeLabelValue">
 		SELECT
-			code_value AS value,
+			group_code AS value,
 			code_name AS label
 		FROM code_detail
 		WHERE use_yn = 'Y'

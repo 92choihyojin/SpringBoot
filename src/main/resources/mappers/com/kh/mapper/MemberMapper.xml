@@ -34,20 +34,36 @@
 			member_seq.NEXTVAL,
 			#{userId},
 			#{userPw},
-			#{userName}
-			#{JOB}
+			#{userName},
+			#{job}
 		)
 	</insert>
+	
+	<select id="readMemberById" resultType="int">
+		SELECT 
+			USER_NO
+		FROM MEMBER 
+		WHERE USER_ID = #{id} AND ENABLED = '1'
+	</select>
+	
+	<select id="readAuthByName" resultType="int">
+		SELECT 
+			AUTH_NO
+		FROM AUTH 
+		WHERE AUTH_NAME = #{name}
+		AND IS_DELETE = 0
+	</select>
 	
 	<!-- 권한 생성 -->
 	<insert id="createAuth">
 		INSERT INTO member_auth(
-			user_no,
-			auth_no
-			)
-		VALUES(
-			member_seq.CURRVAL,
-			#{auth}
+			MEMBER_AUTH_NO,
+			USER_NO,
+			AUTH_NO
+		) VALUES (
+			member_auth_seq.NEXTVAL,
+			#{userNo},
+			#{authNo}
 		)
 	</insert>
 	
@@ -86,16 +102,16 @@
 	<!-- 사용자 아이디로 회원 정보 조회 -->
 	<select id="readByUserId" resultMap="memberMap">
 		SELECT
-			mem.user_no,
-			mem.user_id,
-			user_pw,
-			user_name,
-			job,
-			coin,
-			enabled,
-			reg_date,
-			upd_date,
-			auth
+		    mem.user_no,
+		    mem.user_id,
+		    mem.user_pw,
+		    mem.user_name,
+		    mem.job,
+		    mem.coin,
+		    mem.enabled,
+		    mem.reg_date,
+		    mem.upd_date,
+		    auth.auth_no
 		FROM member mem
 		LEFT OUTER JOIN member_auth auth ON mem.user_no = auth.user_no
 		WHERE mem.user_id = #{userId}

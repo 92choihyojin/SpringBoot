@@ -18,9 +18,9 @@ public class CustomUser extends User {
 	}
 
 	//로그인에 사용자 정보 입력시 시큐리티 관리하는 User객체에 정보 등록
-	public CustomUser(Member member) {
+	public CustomUser(Member member, String authName) {
 		super(member.getUserId(), member.getUserPw(),
-				member.getAuthList().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
+				member.getAuthList().stream().map(auth -> new SimpleGrantedAuthority(authName)).collect(Collectors.toList()));
 		
 		this.member = member;
 	}

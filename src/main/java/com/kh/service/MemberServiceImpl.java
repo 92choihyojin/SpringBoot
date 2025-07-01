@@ -21,9 +21,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void register(Member member) throws Exception {
 		mapper.register(member);
+		
+		System.out.println(member.getUserNo());
 		// 회원 권한 생성
 		MemberAuth memberAuth = new MemberAuth();
-		memberAuth.setAuth("ROLE_MEMBER");
+		
+		memberAuth.setUserNo(mapper.readMemberById(member.getUserId()));
+		memberAuth.setAuthNo(mapper.readAuthByName("GUEST"));
 		
 		mapper.createAuth(memberAuth);
 	}

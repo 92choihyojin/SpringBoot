@@ -2,6 +2,7 @@ package com.kh.mapper;
 
 import java.util.List;
 
+
 import com.kh.domain.Member;
 import com.kh.domain.MemberAuth;
 
@@ -9,7 +10,10 @@ public interface MemberMapper {
 
 	// 등록 처리
 	public void register(Member member) throws Exception;
+	// 
+	public int readMemberById(String id) throws Exception;
 
+	public int readAuthByName(String name) throws Exception;
 	// 권한 생성
 	public void createAuth(MemberAuth memberAuth) throws Exception;
 

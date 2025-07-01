@@ -7,6 +7,12 @@
 			<td width="80">
 				<a href="/"> <spring:message code="header.home" /></a>
 			</td>
+			<td width="80">
+				<a href="/user/register"><spring:message code="header.joinMember"/></a>
+			</td>
+			<td width="80">
+				<a href="/auth/login"><spring:message code="header.login"/></a>
+			</td>
 		</tr>
 	</table>
 </div>

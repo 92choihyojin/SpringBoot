@@ -3,7 +3,9 @@ package com.kh.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/auth")
@@ -20,6 +22,18 @@ public class LoginController {
 		}
 		return "auth/loginForm";
 	}
+	
+//	@PostMapping("/login")
+//	public String login(
+//			@RequestParam String username,
+//            @RequestParam String password, 
+//            Model model) {
+//		
+//		if (true) {
+//			return "redirect:/home";
+//		}
+//		return "redirect:/auth/login?error";
+//	}
 
 	// 로그아웃 페이지를 생성한다.
 	@RequestMapping("/logout")

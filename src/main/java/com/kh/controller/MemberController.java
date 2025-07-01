@@ -37,8 +37,8 @@ public class MemberController {
 	@GetMapping("/register")
 	public void registerForm(Member member, Model model) throws Exception {
 		// 직업코드 목록을 조회하여 뷰에 전달
-		String groupCode = "A00"; List<CodeLabelValue> jobList =
-		codeService.getCodeList(groupCode);
+		String groupCode = "00";
+		List<CodeLabelValue> jobList = codeService.getCodeList(groupCode);
 		model.addAttribute("jobList", jobList);
 	}
 
@@ -49,17 +49,21 @@ public class MemberController {
 		//PasswordEncoderImpl passwordEncoderImpl = new PasswordEncoderImpl();
 		if (result.hasErrors()) {
 			// 직업코드 목록을 조회하여 뷰에 전달
-			String groupCode = "A00"; List<CodeLabelValue> jobList =
-			codeService.getCodeList(groupCode);
+			String groupCode = "00";
+			List<CodeLabelValue> jobList = codeService.getCodeList(groupCode);
 			model.addAttribute("jobList", jobList);
 			return "user/register";
 		}
 		// 비밀번호 암호화
-		String inputPassword = member.getUserPw();
-		
-		//member.setUserPw(passwordEncoderImpl.encode(inputPassword));
-		//member.setUserPw(passwordEncoder.encode(inputPassword));
 		member.setUserPw(passwordEncoder.encode(member.getUserPw()));
+		
+		System.out.println(member.getUserId());
+		System.out.println(member.getUserNo());
+		System.out.println(member.getUserPw());
+		System.out.println(member.getUserName());
+		System.out.println(member.getJob());
+		System.out.println(member.getEnabled());
+		System.out.println(member.getCoin());
 		service.register(member);
 		rttr.addFlashAttribute("userName", member.getUserName());
 		return "redirect:/user/registerSuccess";

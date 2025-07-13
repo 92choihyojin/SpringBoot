@@ -71,7 +71,7 @@ public class BoardController {
 		pagination.setPageRequest(pageRequest);
 
 		// 페이지 네비게이션 정보에 검색 처리된 게시글 건수를 저장(변경).
-		pagination.setTotalCount(service.count());
+		pagination.setTotalCount(service.count(pageRequest));
 		model.addAttribute("pagination", pagination);
 
 		// 검색 유형의 코드명과 코드값을 정의
@@ -97,7 +97,7 @@ public class BoardController {
 	// 게시글 목록 페이지
 	@GetMapping("/list")
 	public void list(Model model) throws Exception {
-		model.addAttribute("list", service.list());
+		model.addAttribute("list", service.list(null));
 	}
 
 	// 게시글 상세 페이지
@@ -125,9 +125,9 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	// 게시글 삭제 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다. @RequestMapping(value = "/remove",
-	// method = RequestMethod.POST)
-	// @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
+	// 게시글 삭제 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.
+	@PostMapping("/remove")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
 	public String delete(int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
 		service.delete(boardNo);
 		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다. rttr.addAttribute("page",

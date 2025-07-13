@@ -2,7 +2,13 @@ package com.kh.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.kh.domain.Item;
+
+@Service
+@Transactional
 
 public interface ItemService {
 

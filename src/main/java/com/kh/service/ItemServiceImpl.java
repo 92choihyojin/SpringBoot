@@ -10,6 +10,7 @@ public class ItemServiceImpl implements ItemService {
 	private ItemMapper mapper;
 
 	// 상품 등록 처리
+	@Override
 	public void register(Item item) throws Exception {
 		mapper.create(item);
 	}

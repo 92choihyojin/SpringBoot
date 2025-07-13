@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.ItemMapper">
+
+	<!-- 상품 등록 처리 -->
+	<insert id="create">
+		INSERT INTO ITEM (
+		ITEM_ID,
+		ITEM_NAME,
+		PRICE,
+		DESCRIPTION,
+		PICTURE_URL,
+		PREVIEW_URL
+		)
+		VALUES(
+		ITEM_SEQ.NEXTVAL,
+		'노트북',
+		500000,
+		'A사의 노트북',
+		'https://www.apple.com/kr/macbook-air/',
+		'https://www.apple.com/kr/mac/?focus=performance-and-battery'
+		)
+
+	</insert>
+
+	<!-- 상품 목록 조회 -->
+	<select id="list" resultType="Item">
+		SELECT ITEM_ID,
+		ITEM_NAME,
+		PRICE,
+		DESCRIPTION,
+		PICTURE_URL,
+		PREVIEW_URL
+		FROM ITEM
+		WHERE ITEM_ID > 0 ORDER BY
+		ITEM_ID DESC
+	</select>
+
+	<!-- 상품 상세 조회 -->
+	<select id="read" resultType="Item">
+		SELECT ITEM_ID,
+		ITEM_NAME,
+		PRICE,
+		DESCRIPTION,
+		PICTURE_URL,
+		PREVIEW_URL
+		FROM ITEM
+		WHERE ITEM_ID = #{ITEMID}
+	</select>
+
+	<!-- 상품 수정 처리 -->
+	<update id="update">
+		UPDATE ITEM
+		SET ITEM_NAME = #{ITEMNAME},
+		PRICE = #{PRICE},
+		DESCRIPTION = #{DESCRIPTION},
+		PICTURE_URL = #{PICTUREURL},
+		PREVIEW_URL =
+		#{PREVIEWURL}
+		WHERE ITEM_ID = #{ITEMID}
+	</update>
+
+	<!-- 상품 삭제 처리 -->
+	<delete id="delete">
+		DELETE FROM ITEM
+		WHERE ITEM_ID = #{ITEMID}
+	</delete>
+
+	<!-- 원본 이미지 표시 -->
+	<select id="getPicture" resultType="String">
+		SELECT picture_url
+		FROM item
+		WHERE item_id = #{itemId}
+	</select>
+
+	<!-- 미리보기 이미지 표시 -->
+	<select id="getPreview" resultType="String">
+		SELECT preview_url
+		FROM item
+		WHERE item_id = #{itemId}
+	</select>
+
+
+</mapper>

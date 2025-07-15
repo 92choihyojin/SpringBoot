@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!-- 화면영역 -->
@@ -122,6 +121,8 @@
 		<spring:message code="board.header.list" />
 	</h2>
 
+
+
 	<!-- 검색 폼을 만든다. -->
 	<form:form modelAttribute="pgrq" method="get"
 		action="list${pgrq.toUriStringByPage(1)}">
@@ -134,7 +135,7 @@
 		</button>
 	</form:form>
 
-	<sec:authorize access="hasRole('ROLE_MEMBER')">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
 		<a href="register"><spring:message code="action.new" /></a>
 	</sec:authorize>
 
@@ -144,10 +145,6 @@
 			<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
 			<%-- 삭제 <td align="left"><a href="/board/read${pagination.makeQuery(pagination.pageRequest.page)}&boardNo=
 ${board.boardNo}">${board.title}</a></td> --%>
-			<td align="left"><a
-				href="/board/read${pgrq.toUriString(pgrq.page)}&boardNo=${board.boardNo}"><c:o
-						ut value="${board.title}" /></a></td>
-
 			<th align="center" width="320"><spring:message
 					code="board.title" /></th>
 			<th align="center" width="100"><spring:message
@@ -171,13 +168,17 @@ ${board.boardNo}">${board.title}</a></td> --%>
 							href="/board/read${pagination.makeQuery(pagination.pageRequest.page)}&boardNo=
 							${board.boardNo}">${board.title}</a></td>
 						<td align="right">${board.writer}</td>
-						<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-								value="${board.regDate}" /></td>
+						<td align="center">
+							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.regDate}" />
+						</td>
+
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 	</table>
+
+
 	<!-- 페이징 네비게이션 -->
 	<div>
 		<div>

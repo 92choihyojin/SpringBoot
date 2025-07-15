@@ -2,9 +2,12 @@ package com.kh.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.kh.domain.Item;
 import com.kh.mapper.ItemMapper;
 
+@Service
 public class ItemServiceImpl implements ItemService {
 
 	private ItemMapper mapper;

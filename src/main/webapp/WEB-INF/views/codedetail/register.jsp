@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <h2>
 	<spring:message code="codedetail.header.register" />
 </h2>

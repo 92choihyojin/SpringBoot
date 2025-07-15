@@ -21,14 +21,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void register(Member member) throws Exception {
 		mapper.register(member);
-		
-		System.out.println(member.getUserNo());
+
 		// 회원 권한 생성
 		MemberAuth memberAuth = new MemberAuth();
-		
+
 		memberAuth.setUserNo(mapper.readMemberById(member.getUserId()));
-		memberAuth.setAuthNo(mapper.readAuthByName("GUEST"));
-		
+		memberAuth.setAuthNo(mapper.readAuthByName("ROLE_GUEST"));
+
 		mapper.createAuth(memberAuth);
 	}
 
@@ -87,11 +86,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void setupAdmin(Member member) throws Exception {
 		mapper.register(member);
-		
+
 		MemberAuth memberAuth = new MemberAuth();
-		
-		memberAuth.setUserNo(member.getUserNo());	
+
+		memberAuth.setUserNo(member.getUserNo());
 		memberAuth.setAuth("ROLE_ADMIN");
 		mapper.createAuth(memberAuth);
+	}
+
+	// 회원의 코인을 반환한다.
+	@Override
+	public int getCoin(int userNo) throws Exception {
+		Member member = mapper.read(userNo);
+		return member.getCoin();
 	}
 }

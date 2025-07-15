@@ -34,6 +34,7 @@ public class BoardController {
 	@GetMapping("/register")
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	public void registerForm(Model model, Authentication authentication) throws Exception {
+		
 		// 로그인한 사용자 정보 획득
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member = customUser.getMember();
@@ -90,33 +91,35 @@ public class BoardController {
 	@GetMapping("/read")
 	public void read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		// 조회한 게시글 상세 정보를 뷰에 전달한다.
+		// read?page=1&perPageNum=10&boardNo=1
 		Board board = service.read(boardNo);
 		model.addAttribute(board);
+		
 	}
 
 	// 게시글 목록 페이지
-	@GetMapping("/list")
-	public void list(Model model) throws Exception {
-		model.addAttribute("list", service.list(null));
-	}
+//	@GetMapping("/list")
+//	public void list(Model model) throws Exception {
+//		model.addAttribute("list", service.list(null));
+//	}
 
 	// 게시글 상세 페이지
-	@GetMapping("/read")
-	public void read(int boardNo, Model model) throws Exception {
-		model.addAttribute(service.read(boardNo));
-	}
+//	@GetMapping("/read")
+//	public void read(int boardNo, Model model) throws Exception {
+//		model.addAttribute(service.read(boardNo));
+//	}
 
 	// 게시글 수정 페이지
 	@GetMapping("/modify")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
-	public void modifyForm(int boardNo, Model model) throws Exception {
+	public void modifyForm(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		model.addAttribute(service.read(boardNo));
 	}
 
 	// 게시글 수정 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달
 	@PostMapping("/modify")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
-	public String modify(Board board, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+	public String modify(Board board, @ModelAttribute("pgrq") PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
 		service.modify(board);
 		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달
 		rttr.addAttribute("page", pageRequest.getPage());

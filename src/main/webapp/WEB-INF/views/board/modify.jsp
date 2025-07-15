@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!-- 화면 영역 -->
 <h2>
 	<spring:message code="board.header.modify" />
@@ -39,18 +39,18 @@
 <div>
 	<sec:authentication property="principal" var="pinfo" />
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<button type="submit" id="btnModify">
+		<button type="button" id="btnModify">
 			<spring:message code="action.modify" />
 		</button>
 	</sec:authorize>
 	<sec:authorize access="hasRole('ROLE_MEMBER')">
 		<c:if test="${pinfo.username eq board.writer}">
-			<button type="submit" id="btnModify">
+			<button type="button" id="btnModify">
 				<spring:message code="action.modify" />
 			</button>
 		</c:if>
 	</sec:authorize>
-	<button type="submit" id="btnList">
+	<button type="button" id="btnList">
 		<spring:message code="action.list" />
 	</button>
 </div>

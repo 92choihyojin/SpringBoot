@@ -56,6 +56,7 @@ public class MemberController {
 		}
 		// 비밀번호 암호화
 		member.setUserPw(passwordEncoder.encode(member.getUserPw()));
+		// member.setEnabled("1");
 		
 		System.out.println(member.getUserId());
 		System.out.println(member.getUserNo());

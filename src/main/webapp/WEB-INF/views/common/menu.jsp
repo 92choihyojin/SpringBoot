@@ -4,7 +4,6 @@
 <div align="right">
 	<table>
 		<tr>
-			
 			<td width="120">
 				<a href="/codegroup/list"><spring:message code="menu.codegroup.list"/></a>
 			</td>

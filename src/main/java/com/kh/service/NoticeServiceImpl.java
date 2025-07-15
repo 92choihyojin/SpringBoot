@@ -3,10 +3,12 @@ package com.kh.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kh.domain.Notice;
 import com.kh.mapper.NoticeMapper;
 
+@Service
 public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeMapper mapper;

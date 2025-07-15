@@ -39,6 +39,10 @@
 		</table>
 	</form:form>
 	<div>
+		<!-- 구매하기 버튼 추가 -->
+		<button type="submit" id="btnBuy">
+			<spring:message code="action.buy" />
+		</button>
 		<button type="submit" id="btnList">
 			<spring:message code="action.list" />
 		</button>
@@ -46,6 +50,10 @@
 	<script>
 		$(document).ready(function() {
 			var formObj = $("#item");
+			// 구매하기 버튼 이벤트 처리
+			$("#btnBuy").on("click", function() {
+				formObj.submit();
+			});
 			$("#btnList").on("click", function() {
 				self.location = "list";
 			});

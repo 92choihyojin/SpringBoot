@@ -1,0 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>
+		<spring:message code="item.header.downloadError" />
+	</h2>
+	<p>
+		<spring:message code="item.notMyItem" />
+	</p>
+	<a href="list"><spring:message code="action.list" /></a>
+</body>
+</html>

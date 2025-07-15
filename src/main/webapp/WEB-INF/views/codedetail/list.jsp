@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!-- 화면영역 -->
 <style>
 /* 테이블 기본 스타일 */

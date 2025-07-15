@@ -36,22 +36,23 @@ public class SecurityConfig {
 	// 데이터 소스
 	@Autowired
 	DataSource dataSource;
+	
+	@Autowired
+	CustomUserDetailsService customUserDetailsService;
 
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		log.info("security config ...");
 		// csrf 토큰 비활성화
 		http.csrf().disable();
 		
 		// 인가설정
 		http.authorizeHttpRequests((auth) -> auth
-				.requestMatchers(HttpMethod.DELETE, "/member/**").permitAll()
 				.requestMatchers("/board/**").authenticated()
 				.requestMatchers("/manager/**").hasRole("MANAGER")
 				.requestMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().permitAll()
 		);
-
 
 		// CustomLoginSuccessHandler를 로그인 성공 처리자로 지정한다.
 		http.formLogin()
@@ -76,15 +77,16 @@ public class SecurityConfig {
 		.key("zeus")
 		.tokenRepository(createJDBCRepository())
 		.tokenValiditySeconds(60 * 60 * 24)
-		.userDetailsService(createUserDetailsService());
+		.userDetailsService(customUserDetailsService);
+		
 		return http.build();
 		
 	}
 
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(createUserDetailsService())
-		.passwordEncoder(createPasswordEncoder());
-	}
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.userDetailsService(customUserDetailsService)
+//		.passwordEncoder(createPasswordEncoder());
+//	}
 
 	@Bean
 	public PasswordEncoder createPasswordEncoder() {
@@ -104,10 +106,9 @@ public class SecurityConfig {
 	}
 
 	// CustomUserDetailsService를 스프링 빈으로 정의한다.
-	@Bean
-	public UserDetailsService createUserDetailsService() {
-		return new CustomUserDetailsService();
-	}
+//	public UserDetailsService createUserDetailsService() {
+//		return customUserDetailsService;
+//	}
 
 	private PersistentTokenRepository createJDBCRepository() {
 		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
@@ -117,7 +118,7 @@ public class SecurityConfig {
 	@Bean
 	public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
 	    return http.getSharedObject(AuthenticationManagerBuilder.class)
-	            .userDetailsService(createUserDetailsService())
+	            .userDetailsService(customUserDetailsService)
 	            .passwordEncoder(createPasswordEncoder())
 	            .and()
 	            .build();

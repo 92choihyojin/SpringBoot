@@ -18,4 +18,5 @@ public class Item {
 	private String pictureUrl;
 	private MultipartFile preview;
 	private String previewUrl;
+	
 }

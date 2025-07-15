@@ -26,4 +26,7 @@ public interface MemberService {
 	// 최초 관리자 생성을 위한 데이터를 등록
 	public void setupAdmin(Member member) throws Exception;
 
+	// 회원의 코인을 반환한다.
+	public int getCoin(int userNo) throws Exception;
+
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.kh.common.domain.PageRequest;
 import com.kh.domain.Board;
 
-@Service
 public interface BoardService {
 
 	// 게시글 등록 처리

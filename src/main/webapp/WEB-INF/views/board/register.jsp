@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,11 +36,11 @@
 	</form:form>
 	<div>
 		<sec:authorize access="isAuthenticated()">
-			<button type="submit" id="btnRegister">
+			<button type="button" id="btnRegister">
 				<spring:message code="action.register" />
 			</button>
 		</sec:authorize>
-		<button type="submit" id="btnList">
+		<button type="button" id="btnList">
 			<spring:message code="action.list" />
 		</button>
 	</div>

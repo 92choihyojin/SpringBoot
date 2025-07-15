@@ -64,10 +64,16 @@
 		content,
 		writer,
 		reg_date
-		FROM (select board_no,
-		title, content, writer, reg_date,
-		rownum as rnum
-		from board)
+		FROM (
+			select 
+				board_no,
+				title, 
+				content, 
+				writer, 
+				reg_date,
+				rownum as rnum
+			from board
+		)
 		where rnum between #{sizePerPage}*#{page}-9
 		and #{sizePerPage}*#{page}
 		ORDER BY board_no DESC,
@@ -77,12 +83,11 @@
 	<!-- 게시글 상세 조회 -->
 	<select id="read" resultType="Board">
 		SELECT
-		board_no,
-		title,
-		content,
-		writer,
-		reg_date,
-		UPD_DATE
+			board_no,
+			title,
+			content,
+			writer,
+			reg_date
 		FROM board
 		WHERE board_no = #{boardNo}
 	</select>
@@ -90,8 +95,8 @@
 	<!-- 게시글 수정 처리 -->
 	<update id="update">
 		UPDATE board
-		SET title =#{title},
-		content =#{content}
+		SET title = #{title},
+			content = #{content}
 		WHERE board_no = #{boardNo}
 	</update>
 
